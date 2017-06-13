@@ -14,7 +14,7 @@ public class HeldSpear : MonoBehaviour {
     void Update()
     {
         Character = GameObject.FindWithTag("Player");
-        Spear = GameObject.FindWithTag("FlyingSpear");
+        Spear = GameObject.FindWithTag("DeadSpear");
         Shoot = Input.GetKeyDown(KeyCode.LeftControl);
         spear_position = gameObject.transform.position;
         
