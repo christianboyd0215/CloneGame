@@ -56,7 +56,7 @@ public class BossAI : MonoBehaviour {
 
 
     }
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("should be jumping.");
         if (collision.gameObject.CompareTag("Ground"))
@@ -84,7 +84,7 @@ public class BossAI : MonoBehaviour {
         }
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
     private void OnCollisionStay(Collision collision)
