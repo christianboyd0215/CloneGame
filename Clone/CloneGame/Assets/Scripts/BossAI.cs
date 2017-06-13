@@ -14,6 +14,7 @@ public class BossAI : MonoBehaviour {
     int randNum;
     float counter;
     Rigidbody2D boss_Rigidbody2D;
+    BoxCollider2D HitBox;
     // Use this for initialization
     void Start()
     {
@@ -27,6 +28,7 @@ public class BossAI : MonoBehaviour {
         jump = true;
         randGen = new System.Random();
         boss_Rigidbody2D = GetComponent<Rigidbody2D>();
+        HitBox = GetComponent<BoxCollider2D>();
     }
 	
 
@@ -85,6 +87,7 @@ public class BossAI : MonoBehaviour {
         if (collision.gameObject.CompareTag("Spear"))
         {
             //kills enemy
+            Debug.Log("Kill Enemy");
         }
     }
     private void OnCollisionStay(Collision collision)
