@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyingSpear : MonoBehaviour
 {
-    public Vector2 Speed = new Vector2(15f,0f);
+    public Vector2 Speed = new Vector2(15f, 0f);
     private GameObject Character;
     private Rigidbody2D rb;
     private bool Shoot = false;
@@ -12,13 +12,21 @@ public class FlyingSpear : MonoBehaviour
     void Awake()
     {
         Character = GameObject.FindWithTag("Player");
-        Debug.Log(Character.transform.localScale.x / Mathf.Abs(Character.transform.localScale.x));
-        Speed = new Vector2(Speed.x * Character.transform.localScale.x / Mathf.Abs(Character.transform.localScale.x), Speed.y*Mathf.Abs(Character.transform.localScale.y));
+        Speed = new Vector2(Speed.x * Character.transform.localScale.x / Mathf.Abs(Character.transform.localScale.x), Speed.y * Mathf.Abs(Character.transform.localScale.y));
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.velocity = Speed;
     }
-    
-    void Update()
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            Speed = Vector2.zero;
+        }
+    }  
+
+
+void Update()
     {
         Character = GameObject.FindWithTag("Player");
         Shoot = Input.GetKeyDown(KeyCode.LeftControl);

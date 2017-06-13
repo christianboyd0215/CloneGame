@@ -82,9 +82,9 @@ public class BossAI : MonoBehaviour {
                 jump = false;
             }*/
         }
-        if (collision.gameObject.CompareTag("Spear"))
+        if (collision.gameObject.CompareTag("FlyingSpear"))
         {
-            //kills enemy
+            //Destroy(gameObject);
         }
     }
     private void OnCollisionStay(Collision collision)
