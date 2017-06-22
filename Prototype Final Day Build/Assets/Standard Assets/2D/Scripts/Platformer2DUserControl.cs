@@ -9,6 +9,7 @@ namespace UnityStandardAssets._2D
     {
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
+        private bool Jump_Cancel;
 
 
         private void Awake()
@@ -23,6 +24,7 @@ namespace UnityStandardAssets._2D
             {
                 // Read the jump input in Update so button presses aren't missed.
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                Jump_Cancel = CrossPlatformInputManager.GetButtonUp("Jump");
             }
         }
 
@@ -33,7 +35,7 @@ namespace UnityStandardAssets._2D
             bool crouch = Input.GetKey(KeyCode.LeftControl);
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             // Pass all parameters to the character control script.
-            m_Character.Move(h, crouch, m_Jump);
+            m_Character.Move(h, crouch, m_Jump, Jump_Cancel);
             m_Jump = false;
         }
     }
