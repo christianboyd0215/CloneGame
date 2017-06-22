@@ -26,7 +26,7 @@ namespace UnityStandardAssets._2D
             m_GroundCheck = transform.Find("GroundCheck");
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
-             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
 
@@ -49,7 +49,7 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool jump)
+        public void Move(float move, bool crouch, bool jump, bool jump_cancel)
         {
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
@@ -96,6 +96,12 @@ namespace UnityStandardAssets._2D
                 m_Grounded = false;
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            }
+            if (jump_cancel && !m_Anim.GetBool("Ground"))
+            {
+                m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
+               // m_Rigidbody2D.AddForce(new Vector2(0f, -(0.5f*m_JumpForce)));
+                Debug.Log(m_Rigidbody2D.velocity.y);
             }
         }
 
