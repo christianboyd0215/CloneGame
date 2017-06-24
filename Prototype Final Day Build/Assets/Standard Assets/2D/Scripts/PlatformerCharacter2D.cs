@@ -115,6 +115,43 @@ namespace UnityStandardAssets._2D
             theScale.x *= -1;
             transform.localScale = theScale;
         }
-        //void OnCollision
+        //Triggers when a collision is initially detected
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(collision.gameObject.CompareTag("Ground"))
+            {
+
+            }
+            else if(collision.gameObject.CompareTag("Fast Ground"))
+            {
+
+            }
+            else if(collision.gameObject.CompareTag("Slow Ground"))
+            {
+
+            }
+            if(collision.gameObject.CompareTag("Moving Ground"))
+            {
+                m_Rigidbody2D.transform.parent = collision.transform;
+            }
+        }
+        //Triggers every frame while an object is colliding with another object
+        void OnCollisionStay2D(Collision2D collision)
+        {
+
+        }
+        //Triggers on exiting a collision
+        void OnCollisionExit2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Moving Ground"))
+            {
+                m_Rigidbody2D.transform.parent = null;
+            }
+        }
+        //Triggers when object enters a Trigger
+        void OnTriggerEnter2D(Collision2D collision)
+        {
+
+        }
     }
 }
