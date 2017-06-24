@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Prototype Level (Maybe be missing assests).unity
-  isLoaded: 1
-  isActive: 1
