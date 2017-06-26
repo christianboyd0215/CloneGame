@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets._2D
 {
@@ -151,7 +152,10 @@ namespace UnityStandardAssets._2D
         //Triggers when object enters a Trigger
         void OnTriggerEnter2D(Collision2D collision)
         {
-
+            if(collision.gameObject.CompareTag("FireBall"))
+            {
+                SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+            }
         }
     }
 }
