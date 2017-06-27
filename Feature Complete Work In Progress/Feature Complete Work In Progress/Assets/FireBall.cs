@@ -13,7 +13,7 @@ public class FireBall : MonoBehaviour {
     {
         if(trigger.gameObject.CompareTag("FireBallKillZone"))
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }
