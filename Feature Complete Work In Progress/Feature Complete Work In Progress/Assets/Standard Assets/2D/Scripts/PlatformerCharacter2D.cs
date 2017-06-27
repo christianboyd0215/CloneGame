@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets._2D
 {
@@ -10,7 +8,6 @@ namespace UnityStandardAssets._2D
         [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
         [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
-        [Range(1, 2)] [SerializeField] private float m_SprintSpeed = 1.52f;  // Amount of maxSpeed applied to sprinting movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
 
@@ -52,7 +49,7 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool jump, bool jump_cancel, bool sprint)
+        public void Move(float move, bool crouch, bool jump)
         {
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
@@ -72,7 +69,6 @@ namespace UnityStandardAssets._2D
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
                 move = (crouch ? move*m_CrouchSpeed : move);
-                move = (sprint ? move*m_SprintSpeed : move);
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
                 m_Anim.SetFloat("Speed", Mathf.Abs(move));
@@ -101,10 +97,6 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
-            if(jump_cancel && !m_Anim.GetBool("Ground") && m_Rigidbody2D.velocity.y>0)
-            {
-                m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
-            }
         }
 
 
@@ -117,47 +109,6 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
-        }
-        //Triggers when a collision is initially detected
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            if(collision.gameObject.CompareTag("Ground"))
-            {
-
-            }
-            else if(collision.gameObject.CompareTag("Fast Ground"))
-            {
-
-            }
-            else if(collision.gameObject.CompareTag("Slow Ground"))
-            {
-
-            }
-            if(collision.gameObject.CompareTag("Moving Ground"))
-            {
-                m_Rigidbody2D.transform.parent = collision.transform;
-            }
-        }
-        //Triggers every frame while an object is colliding with another object
-        void OnCollisionStay2D(Collision2D collision)
-        {
-
-        }
-        //Triggers on exiting a collision
-        void OnCollisionExit2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("Moving Ground"))
-            {
-                m_Rigidbody2D.transform.parent = null;
-            }
-        }
-        //Triggers when object enters a Trigger
-        void OnTriggerEnter2D(Collision2D collision)
-        {
-            if(collision.gameObject.CompareTag("FireBall"))
-            {
-                SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
-            }
         }
     }
 }

@@ -9,17 +9,11 @@ namespace UnityStandardAssets._2D
     {
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
-            }
-        }
-        private void OnTriggerEnter2D(Collision2D other)
-        {
-            if(other.gameObject.CompareTag("Player"))
-            {
-                SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
-            }
+                if (other.gameObject.CompareTag("Player"))
+                {
+                    SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+                }
+            
         }
     }
 }
