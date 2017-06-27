@@ -9,11 +9,11 @@ public class FireBall : MonoBehaviour {
 
 	}
 	
-	void OnTriggerEnter(Collision2D trigger)
+	void OnTriggerEnter2D(Collider2D trigger)
     {
-        if(trigger.gameObject.CompareTag("FireBallKillZone"))
+        if(trigger.gameObject.CompareTag("FireBallKillzone"))
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }
