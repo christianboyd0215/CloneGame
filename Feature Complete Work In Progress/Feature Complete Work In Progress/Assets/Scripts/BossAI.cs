@@ -18,7 +18,7 @@ public class BossAI : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        ;
+        
     }
     void Awake () {
         // Set up the references.
@@ -86,9 +86,10 @@ public class BossAI : MonoBehaviour {
         }
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
-            Destroy(gameObject);
-            //kills enemy
-            Debug.Log("Kill Enemy");
+                Destroy(gameObject);
+                //kills enemy
+                Debug.Log("Kill Enemy");
+
         }
     }
     private void OnCollisionStay(Collision collision)

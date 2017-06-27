@@ -10,12 +10,11 @@ public class SimpleSlimeAI : MonoBehaviour {
     Rigidbody2D boss_Rigidbody2D;
     Vector2 Direction;
     public float minSize;          // The slime won't split if it is under the minSize
-    public float jumpHeight;
-    public float jumpWidth;
+
     // Use this for initialization
     void Start()
     {
-        ;
+        
     }
     void Awake()
     {
@@ -28,12 +27,12 @@ public class SimpleSlimeAI : MonoBehaviour {
     {
         // get direction
         if (player.position.x - boss_Rigidbody2D.position.x > 0)
-            Direction = new Vector2(jumpWidth, jumpHeight);
+            Direction = new Vector2(300, 0);
         else
-            Direction = new Vector2(-jumpWidth, jumpHeight);
+            Direction = new Vector2(-300, 0);
         // chase
         counter += Time.deltaTime;
-        if (counter >= 1.5 && Math.Abs(player.position.x - boss_Rigidbody2D.position.x) < 10)
+        if (counter >= 0.8 && Math.Abs(player.position.x - boss_Rigidbody2D.position.x) < 10)
         {
             boss_Rigidbody2D.AddForce(Direction);
             counter = 0;
@@ -47,8 +46,8 @@ public class SimpleSlimeAI : MonoBehaviour {
             if (transform.localScale.y > minSize)
             {
                 // split
-                GameObject clone1 = Instantiate(gameObject, new Vector3(transform.position.x + 2f, transform.position.y, transform.position.z), transform.rotation) as GameObject;
-                GameObject clone2 = Instantiate(gameObject, new Vector3(transform.position.x - 2f, transform.position.y, transform.position.z), transform.rotation) as GameObject;
+                GameObject clone1 = Instantiate(gameObject, new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z), transform.rotation) as GameObject;
+                GameObject clone2 = Instantiate(gameObject, new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z), transform.rotation) as GameObject;
 
                 clone1.transform.localScale = new Vector3(transform.localScale.x * 0.5f, transform.localScale.y * 0.5f, transform.localScale.z);
                 clone2.transform.localScale = new Vector3(transform.localScale.x * 0.5f, transform.localScale.y * 0.5f, transform.localScale.z);
