@@ -45,4 +45,10 @@ public class ChaseAndDie : MonoBehaviour {
         //position.x += unitxDistance;
         //position.y += unityDistance;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("FlyingSpear"))
+            Destroy(gameObject);
+    }
 }

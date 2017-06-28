@@ -10,7 +10,6 @@ public class BossAI : MonoBehaviour {
     //EnemyHealth enemyHealth;        // Reference to this enemy's health.
     //NavMeshAgent nav;               // Reference to the nav mesh agent.////change to rigidbody
     bool jump;
-    System.Random randGen;
     int randNum;
     float counter;
     Rigidbody2D boss_Rigidbody2D;
@@ -26,7 +25,6 @@ public class BossAI : MonoBehaviour {
         // playerHealth = player.GetComponent<PlayerHealth>();
         // enemyHealth = GetComponent<EnemyHealth>();
         jump = true;
-        randGen = new System.Random();
         boss_Rigidbody2D = GetComponent<Rigidbody2D>();
         HitBox = GetComponent<BoxCollider2D>();
     }
