@@ -186,9 +186,13 @@ namespace UnityStandardAssets._2D
                 Respawn();
             }
 
+            if (other.tag == "Enemy")
+            {
+                Respawn();
+            }
+
             if (other.tag == "CheckPoint")
             {
-                Debug.Log(11);
                 respawnPoint = other.transform.position;
             }
         }
