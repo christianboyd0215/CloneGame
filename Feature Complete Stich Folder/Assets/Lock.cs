@@ -21,8 +21,8 @@ public class Lock : MonoBehaviour {
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
             Instantiate(SpinBoss, new Vector3(transform.position.x + 10f, transform.position.y + 3f, transform.position.z), transform.rotation);
-            GetComponentInParent<BoxCollider2D>().enabled = true;
-            GetComponentInParent<SpriteRenderer>().enabled = true;
+            transform.parent.GetComponent<BoxCollider2D>().enabled = true;
+            transform.parent.GetComponent<SpriteRenderer>().enabled = true;
             Destroy(gameObject);
         }
     }
