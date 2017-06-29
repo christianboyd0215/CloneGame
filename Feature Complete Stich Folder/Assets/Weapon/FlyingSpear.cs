@@ -8,6 +8,7 @@ public class FlyingSpear : MonoBehaviour
     private GameObject Character;
     private Rigidbody2D rb;
     public GameObject BackBar;
+    private GameObject HeldSpear;
     private Vector3 MoveSpeed;
     private Vector3 GritySpeed = Vector3.zero;
     private Vector3 currentAngle;
@@ -28,7 +29,7 @@ public class FlyingSpear : MonoBehaviour
 
     void Start()
     {
-
+        HeldSpear = GameObject.FindWithTag("HeldSpear");
         Character = GameObject.FindWithTag("Player");
         BackBar = GameObject.FindWithTag("Bar");
         direction = Character.transform.localScale.x / Mathf.Abs(Character.transform.localScale.x);
@@ -71,7 +72,10 @@ public class FlyingSpear : MonoBehaviour
         Character = GameObject.FindWithTag("Player");
 
         Shoot = Input.GetKeyDown(KeyCode.LeftControl);
-
+        if (!HeldSpear.GetComponent<HeldSpear>().WasShot)
+        {
+            Destroy(gameObject);
+        }
         if (!done)
         {
             done = GameObject.Find("Counter").GetComponent<SpearBackCounter>().stage3;
