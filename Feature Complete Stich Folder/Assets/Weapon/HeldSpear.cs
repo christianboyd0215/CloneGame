@@ -17,7 +17,7 @@ public class HeldSpear : MonoBehaviour {
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Vector2 spear_position;
-    private float distance = 1.0f;
+    private float distance = 2.0f;
     private string status = null;
     private bool Ele = false;
     private bool Shoot;
@@ -143,7 +143,7 @@ public class HeldSpear : MonoBehaviour {
         }
         else
         {
-            if (Shoot && WasShot && Mathf.Abs(Spear.transform.position.x - Character.transform.position.x) <= distance) 
+            if (Shoot && WasShot && Mathf.Abs(Spear.transform.position.x - Character.transform.position.x) <= distance&& Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) <= distance) 
             {
                 WasShot = false;
                 gameObject.GetComponent<Renderer>().enabled = true;
