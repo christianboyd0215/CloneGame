@@ -6,6 +6,8 @@ using UnityEngine;
 public class ChaseAndDie : MonoBehaviour {
 
     public float chaseSpeed;
+    public float sprintSpeed;
+    public float sprintTime;
     Transform player;               // Reference to the player's position.
     float counter;
     float xDistance;
@@ -30,7 +32,7 @@ public class ChaseAndDie : MonoBehaviour {
     void FixedUpdate()
     {
         // get direction
-        if (counter <= 4.8)
+        if (counter <= sprintTime)
         {
             xDistance = -transform.position.x + player.position.x;
             yDistance = -transform.position.y + player.position.y;
@@ -40,17 +42,17 @@ public class ChaseAndDie : MonoBehaviour {
             transform.Translate(unitxDistance * chaseSpeed, unityDistance * chaseSpeed, 0);
         }
 
-        else if (counter <= 5.3)
+        else if (counter <= sprintTime + 0.5)
         {
 
         }
 
-        else if (counter <= 6.3)
+        else if (counter <= sprintTime + 1.5)
         {
-            transform.Translate(unitxDistance * chaseSpeed * 5, unityDistance * chaseSpeed * 5, 0);
+            transform.Translate(unitxDistance * sprintSpeed, unityDistance * sprintSpeed, 0);
         }
 
-        else if (counter >= 7.3)
+        else if (counter >= sprintTime + 2.5)
             counter = 0;
 
         counter += Time.deltaTime;
