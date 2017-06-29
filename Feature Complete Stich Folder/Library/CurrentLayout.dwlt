@@ -391,10 +391,10 @@ MonoBehaviour:
     width: 313
     height: 592
   m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 609}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: e4fbffff000000000e2f00006c300000
+    m_ExpandedIDs: e4fbffff00000000762c0000b02e0000822f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -475,9 +475,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 13.392851, y: 20.086048, z: -10}
+    m_Target: {x: -7.42672, y: 10.120261, z: -10}
     speed: 2
-    m_Value: {x: 13.392851, y: 20.086048, z: -10}
+    m_Value: {x: -7.42672, y: 10.120261, z: -10}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -504,9 +504,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 14.939838
+    m_Target: 82.60501
     speed: 2
-    m_Value: 14.939838
+    m_Value: 82.60501
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -602,19 +602,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Weapon
+    - Assets/OurPrefabs
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Weapon
+  - Assets/OurPrefabs
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\comic\Source\Repos\CloneGame\Feature Complete Stich
     Folder
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d2260000
-    m_LastClickedID: 9938
+    m_SelectedIDs: e4250000
+    m_LastClickedID: 9700
     m_ExpandedIDs: 000000003e2500003e27000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -671,7 +671,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: 1cd0000090d000005ad30000d22e0000e6240000902500000e381400382f000034250000402d0000e4240000402f00000acb0100482d000000000000483801001a290000b6260000
+    m_ExpandedInstanceIDs: 1cd0000090d000005ad30000d22e0000e6240000902500000e381400382f000034250000402d0000e4240000402f00000acb0100482d000000000000483801001a290000b6260000ba260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
