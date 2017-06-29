@@ -136,7 +136,9 @@ namespace UnityStandardAssets._2D
             }
 
             else
+            {
                 transform.position = respawnPoint;
+            }
         }
 
         //Triggers when a collision is initially detected
