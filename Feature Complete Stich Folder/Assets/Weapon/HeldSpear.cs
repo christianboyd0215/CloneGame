@@ -21,7 +21,7 @@ public class HeldSpear : MonoBehaviour {
     private string status = null;
     private bool Ele = false;
     private bool Shoot;
-    private bool WasShot = false;
+    public bool WasShot = false;
 
     private void Start()
     {
