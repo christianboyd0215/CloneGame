@@ -30,20 +30,30 @@ public class ChaseAndDie : MonoBehaviour {
     void FixedUpdate()
     {
         // get direction
-        xDistance = - transform.position.x + player.position.x;
-        yDistance = - transform.position.y + player.position.y;
-        Distance = (float)(Math.Sqrt(xDistance * xDistance + yDistance * yDistance));
-        unitxDistance = xDistance / Distance;
-        unityDistance = yDistance / Distance;
+        if (counter <= 4.8)
+        {
+            xDistance = -transform.position.x + player.position.x;
+            yDistance = -transform.position.y + player.position.y;
+            Distance = (float)(Math.Sqrt(xDistance * xDistance + yDistance * yDistance));
+            unitxDistance = xDistance / Distance;
+            unityDistance = yDistance / Distance;
+            transform.Translate(unitxDistance * chaseSpeed, unityDistance * chaseSpeed, 0);
+        }
 
-        transform.Translate(unitxDistance * chaseSpeed, unityDistance * chaseSpeed, 0);
-        //position.x += unitxDistance;
-        //position.y += unityDistance;
+        else if (counter <= 5.3)
+        {
 
-        // chase
+        }
 
-        //position.x += unitxDistance;
-        //position.y += unityDistance;
+        else if (counter <= 6.3)
+        {
+            transform.Translate(unitxDistance * chaseSpeed * 5, unityDistance * chaseSpeed * 5, 0);
+        }
+
+        else if (counter >= 7.3)
+            counter = 0;
+
+        counter += Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

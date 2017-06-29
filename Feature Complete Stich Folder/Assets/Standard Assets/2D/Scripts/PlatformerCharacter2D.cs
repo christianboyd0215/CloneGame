@@ -137,6 +137,7 @@ namespace UnityStandardAssets._2D
 
             else
             {
+                SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
                 transform.position = respawnPoint;
             }
         }
