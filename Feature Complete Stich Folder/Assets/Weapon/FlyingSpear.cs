@@ -43,7 +43,7 @@ public class FlyingSpear : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Enemy"))
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Trigger"))
         {
             gameObject.GetComponent<Rigidbody2D>().simulated = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
