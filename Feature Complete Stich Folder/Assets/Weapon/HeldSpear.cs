@@ -143,7 +143,7 @@ public class HeldSpear : MonoBehaviour {
         }
         else
         {
-            if (Shoot && WasShot && Mathf.Abs(Spear.transform.position.x - Character.transform.position.x) <= distance&& Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) <= distance) 
+            if (Shoot && WasShot && Mathf.Abs(Spear.transform.position.x - Character.transform.position.x) <= distance&& Mathf.Abs(Character.transform.position.y - Spear.transform.position.y) <= distance) 
             {
                 WasShot = false;
                 gameObject.GetComponent<Renderer>().enabled = true;
