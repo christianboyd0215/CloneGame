@@ -13,7 +13,7 @@ namespace UnityStandardAssets._2D
         public float m_SprintSpeed;  // Amount of maxSpeed applied to sprinting movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
-        public Vector3 respawnPoint;
+        public static Vector3 respawnPoint;
 
         public bool SlimeBossKilled = false;
         public bool SpinBossKilled = false;
@@ -39,6 +39,8 @@ namespace UnityStandardAssets._2D
             ground = m_MaxSpeed;
             slowground = ground * .5f;
             fastground = ground * 1.5f;
+            if (respawnPoint != default(Vector3))
+                transform.position = respawnPoint;
         }
 
 
@@ -137,8 +139,9 @@ namespace UnityStandardAssets._2D
 
             else
             {
+                DontDestroyOnLoad(this);
                 SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
-                transform.position = respawnPoint;
+                Destroy(gameObject);
             }
         }
 
