@@ -105,7 +105,7 @@ namespace UnityStandardAssets._2D
                 }
             }
             // If the player should jump...
-            if (m_Grounded && jump && m_Anim.GetBool("Ground"))
+            if (m_Grounded && jump && m_Anim.GetBool("Ground")&& !jump_cancel)
             {
                 // Add a vertical force to the player.
                 m_Grounded = false;
