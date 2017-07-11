@@ -13,9 +13,6 @@ public class Wizard_AI : MonoBehaviour
     public GameObject Location6;
     public GameObject Location7;
     public GameObject Location8;
-    public GameObject Location9;
-    public GameObject Location10;
-    public GameObject Location11;
     public GameObject FinalAttackPosition;
     public GameObject Player;
     public GameObject fireball;
@@ -29,7 +26,7 @@ public class Wizard_AI : MonoBehaviour
     private float counter;
     private bool finalAttack;
     private int finalAttackCounter;
-    private float finalAttackTimer;
+    public float finalAttackTimer;
     private GameObject newFireBall;
     private Rigidbody2D speedFireBall;
     private GameObject CurrentLocation;
@@ -47,6 +44,7 @@ public class Wizard_AI : MonoBehaviour
         CurrentLocation = Location1;
         finalAttackCounter = 0;
         finalAttack = false;
+        timer = 0;
         wave1 = finalAttackTimer / 4;
         wave2 = (finalAttackTimer * 2) / 4;
         wave3 = (finalAttackTimer * 3) / 4;
@@ -75,16 +73,16 @@ public class Wizard_AI : MonoBehaviour
         }
         else if (bigBang)
         {
-
+            timer = 0;
         }
-        else if (timer >= counter)
+        else if ((timer >= counter) && !finalAttack && !bigBang)
         {
             newFireBall = Instantiate(fireball, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
             speedFireBall = newFireBall.GetComponent<Rigidbody2D>();
-            float vectxsqr = (Player.transform.position.x - gameObject.transform.position.x) * (Player.transform.position.x - gameObject.transform.position.x);
-            float vectysqr = (Player.transform.position.y - gameObject.transform.position.y) * (Player.transform.position.y - gameObject.transform.position.y);
+            //float vectxsqr = (Player.transform.position.x - gameObject.transform.position.x) * (Player.transform.position.x - gameObject.transform.position.x);
+            //float vectysqr = (Player.transform.position.y - gameObject.transform.position.y) * (Player.transform.position.y - gameObject.transform.position.y);
             speedFireBall.velocity = new Vector2((Player.transform.position.x - gameObject.transform.position.x) /
-                Mathf.Sqrt(vectxsqr + vectysqr), (Player.transform.position.y - gameObject.transform.position.y) / Mathf.Sqrt(vectxsqr + vectysqr));
+                speedreduction, (Player.transform.position.y - gameObject.transform.position.y) / speedreduction);
             timer = 0;
             counter = Random.Range(lowerrange, upperrange);
             finalAttackCounter += 1;
@@ -95,7 +93,8 @@ public class Wizard_AI : MonoBehaviour
             if(finalAttackCounter>=6)
             {
                 finalAttack = true;
-                finalAttackTimer = 0;
+                gameObject.transform.position = FinalAttackPosition.transform.position;
+                timer = 0;
             }
         }
         else
@@ -106,64 +105,59 @@ public class Wizard_AI : MonoBehaviour
     void Teleport()
     {
         bool needsToTeleport = true;
+        Debug.Log("teleportation should occur");
         while (needsToTeleport)
         {
-            int x = Random.Range(0, 11);
-            if (x < 1 && (CurrentLocation != Location1))
+            float x = Random.Range(0, 11);
+            if (x < 0 && (CurrentLocation != Location1))
             {
                 gameObject.transform.position = Location1.transform.position;
                 CurrentLocation = Location1;
+                needsToTeleport = false;
             }
-            else if (x < 2 && (CurrentLocation != Location2))
+            else if (x < 1 && (CurrentLocation != Location2))
             {
                 gameObject.transform.position = Location2.transform.position;
-                CurrentLocation = Location2; 
+                CurrentLocation = Location2;
+                needsToTeleport = false;
             }
-            else if (x < 3 && (CurrentLocation != Location3))
+            else if (x < 2 && (CurrentLocation != Location3))
             {
                 gameObject.transform.position = Location3.transform.position;
-                CurrentLocation = Location3; 
+                CurrentLocation = Location3;
+                needsToTeleport = false;
             }
-            else if (x < 4 && (CurrentLocation != Location4))
+            else if (x < 3 && (CurrentLocation != Location4))
             {
                 gameObject.transform.position = Location4.transform.position;
-                CurrentLocation = Location4; 
+                CurrentLocation = Location4;
+                needsToTeleport = false;
             }
-            else if (x < 5 && (CurrentLocation != Location5))
+            else if (x < 4 && (CurrentLocation != Location5))
             {
                 gameObject.transform.position = Location5.transform.position;
                 CurrentLocation = Location5;
+                needsToTeleport = false;
             }
-            else if (x < 6 && (CurrentLocation != Location6))
+            else if (x < 5 && (CurrentLocation != Location6))
             {
                 gameObject.transform.position = Location6.transform.position;
                 CurrentLocation = Location6;
+                needsToTeleport = false;
             }
-            else if (x < 7 && (CurrentLocation != Location7))
+            else if (x < 6 && (CurrentLocation != Location7))
             {
                 gameObject.transform.position = Location7.transform.position;
                 CurrentLocation = Location7;
+                needsToTeleport = false;
             }
-            else if (x < 8 && (CurrentLocation != Location8))
+            else if (x < 7 && (CurrentLocation != Location8))
             {
                 gameObject.transform.position = Location8.transform.position;
                 CurrentLocation = Location8;
+                needsToTeleport = false;
             }
-            else if (x < 9 && (CurrentLocation != Location9))
-            {
-                gameObject.transform.position = Location9.transform.position;
-                CurrentLocation = Location9;
-            }
-            else if (x < 10 && (CurrentLocation != Location10))
-            {
-                gameObject.transform.position = Location10.transform.position;
-                CurrentLocation = Location10;
-            }
-            else if (x < 11 && (CurrentLocation != Location11))
-            {
-                gameObject.transform.position = Location11.transform.position;
-                CurrentLocation = Location10;
-            }
+            
 
         }
     }
@@ -179,9 +173,13 @@ public class Wizard_AI : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("FlyingSpear"))
+        {
+            Destroy(gameObject);
+        }
     }
-        IEnumerator BigBang(float expansionTime)
+
+    IEnumerator BigBang(float expansionTime)
     {
         float time = 0;
         Vector2 originalScale = finalAttackCollider.transform.localScale;
@@ -199,6 +197,7 @@ public class Wizard_AI : MonoBehaviour
             time += Time.deltaTime;
         }
         bigBang = false;
-        return null;
+
+        yield return null;
     }
 }

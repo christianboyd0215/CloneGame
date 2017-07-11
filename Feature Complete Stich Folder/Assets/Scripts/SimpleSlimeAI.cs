@@ -11,7 +11,8 @@ public class SimpleSlimeAI : MonoBehaviour {
     Vector2 Direction;
     public float jumpheight;
     public float jumpwidth;
-    public float minSize;          // The slime won't split if it is under the minSize
+    public float minSize; // The slime won't split if it is under the minSize
+    public float jumptime;
 
     // Use this for initialization
     void Start()
