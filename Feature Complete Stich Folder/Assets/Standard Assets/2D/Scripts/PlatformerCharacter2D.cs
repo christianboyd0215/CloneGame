@@ -15,8 +15,9 @@ namespace UnityStandardAssets._2D
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
         public static Vector3 respawnPoint;
 
-        public bool SlimeBossKilled = false;
-        public bool SpinBossKilled = false;
+        public static bool SlimeBossKilled = false;
+        public static bool SpinBossKilled = false;
+        public static bool WizardBossKilled = false;
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -142,6 +143,36 @@ namespace UnityStandardAssets._2D
                 DontDestroyOnLoad(this);
                 SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
                 Destroy(gameObject);
+            }
+        }
+        public void KillBoss(string bossName)
+        {
+            if(bossName == "Slime")
+            {
+                SlimeBossKilled = true;
+            }
+        }
+        public bool BossIsDead(string bossName)
+        {
+            if(bossName == "Slime")
+            {
+                return SlimeBossKilled;
+            }
+            if(bossName == "Wizard")
+            {
+                return WizardBossKilled;
+            }
+            if(bossName == "Spin")
+            {
+                return SpinBossKilled;
+            }
+            if(bossName == "Final")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class HeldSpear : MonoBehaviour {
     
@@ -30,10 +31,11 @@ public class HeldSpear : MonoBehaviour {
     }
     void Update()
     {
-        Ele = Shoot = Input.GetKeyDown(KeyCode.C);
+        //Ele = Shoot = Input.GetKeyDown(KeyCode.C);
         Character = GameObject.FindWithTag("Player");
         Spear = GameObject.FindWithTag("FlyingSpear");
-        Shoot = Input.GetKeyDown(KeyCode.LeftControl);
+        //Shoot = Input.GetKeyDown(KeyCode.LeftControl);
+        Shoot = (CrossPlatformInputManager.GetButtonDown("Fire1")|| Input.GetKeyDown(KeyCode.LeftControl));
         spear_position = gameObject.transform.position;
        
         if (Ele)

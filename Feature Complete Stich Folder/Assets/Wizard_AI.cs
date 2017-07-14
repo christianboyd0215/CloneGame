@@ -30,9 +30,10 @@ public class Wizard_AI : MonoBehaviour
     private GameObject newFireBall;
     private Rigidbody2D speedFireBall;
     private GameObject CurrentLocation;
-    private float wave1;
-    private float wave2;
-    private float wave3;
+    private float wave;
+    private float waveCounter;
+    public int number_of_waves;
+    public float speed_of_waves;
     private bool bigBang;
 
 
@@ -45,10 +46,9 @@ public class Wizard_AI : MonoBehaviour
         finalAttackCounter = 0;
         finalAttack = false;
         timer = 0;
-        wave1 = finalAttackTimer / 4;
-        wave2 = (finalAttackTimer * 2) / 4;
-        wave3 = (finalAttackTimer * 3) / 4;
-        bigBang = false;
+        waveCounter = 0;
+        wave = finalAttackTimer / number_of_waves;
+        
     }
 
     // Update is called once per frame
@@ -56,9 +56,7 @@ public class Wizard_AI : MonoBehaviour
     {
         if(finalAttack)
         {
-            float wave1 = finalAttackTimer / 4;
-            float wave2 = (finalAttackTimer * 2) / 4;
-            float wave3 = (finalAttackTimer * 3) / 4;
+            float timePast;
             if(timer>= finalAttackTimer)
             {
                 bigBang = true;
@@ -67,13 +65,30 @@ public class Wizard_AI : MonoBehaviour
             }
             else
             {
-
-                timer += Time.deltaTime;
+                if (waveCounter >= wave)
+                {
+                    newFireBall = Instantiate(fireball, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
+                    speedFireBall = newFireBall.GetComponent<Rigidbody2D>();
+                    //float vectxsqr = (Player.transform.position.x - gameObject.transform.position.x) * (Player.transform.position.x - gameObject.transform.position.x);
+                    //float vectysqr = (Player.transform.position.y - gameObject.transform.position.y) * (Player.transform.position.y - gameObject.transform.position.y);
+                    speedFireBall.velocity = new Vector2(speed_of_waves, 0);
+                    newFireBall = Instantiate(fireball, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
+                    speedFireBall = newFireBall.GetComponent<Rigidbody2D>();
+                    //float vectxsqr = (Player.transform.position.x - gameObject.transform.position.x) * (Player.transform.position.x - gameObject.transform.position.x);
+                    //float vectysqr = (Player.transform.position.y - gameObject.transform.position.y) * (Player.transform.position.y - gameObject.transform.position.y);
+                    speedFireBall.velocity = new Vector2(-speed_of_waves, 0);
+                    waveCounter = 0;
+                }
+                timePast = Time.deltaTime;
+                timer += timePast;
+                waveCounter += timePast;
             }
         }
         else if (bigBang)
         {
+            timer = Time.deltaTime;
             timer = 0;
+
         }
         else if ((timer >= counter) && !finalAttack && !bigBang)
         {
@@ -86,7 +101,7 @@ public class Wizard_AI : MonoBehaviour
             timer = 0;
             counter = Random.Range(lowerrange, upperrange);
             finalAttackCounter += 1;
-            if (Random.Range(0, 1) < 0.1)
+            if (Random.Range(0, 1) > 0.9)
             {
                 Teleport();
             }
@@ -94,7 +109,10 @@ public class Wizard_AI : MonoBehaviour
             {
                 finalAttack = true;
                 gameObject.transform.position = FinalAttackPosition.transform.position;
+                //Rigidbody2D playerthrow = Player.GetComponent<Rigidbody2D>();
+                //playerthrow.AddForce(new Vector2(100 * ((Player.transform.position.x - gameObject.transform.position.x) / (Player.transform.position.x - gameObject.transform.position.x)), 30));
                 timer = 0;
+                finalAttackCounter = 0;
             }
         }
         else
@@ -157,6 +175,7 @@ public class Wizard_AI : MonoBehaviour
                 CurrentLocation = Location8;
                 needsToTeleport = false;
             }
+            finalAttackCounter += 1;
             
 
         }
@@ -166,6 +185,10 @@ public class Wizard_AI : MonoBehaviour
         if (!finalAttack)
         {
             if (other.gameObject.CompareTag("FlyingSpear"))
+            {
+                Teleport();
+            }
+            if (other.gameObject.CompareTag("Player"))
             {
                 Teleport();
             }
@@ -183,20 +206,25 @@ public class Wizard_AI : MonoBehaviour
     {
         float time = 0;
         Vector2 originalScale = finalAttackCollider.transform.localScale;
-        Vector2 newScale = (finalAttackCollider.transform.localScale * scaleForFinalAttack);
+        Vector2 newScale = new Vector2(finalAttackCollider.transform.localScale.x * scaleForFinalAttack, finalAttackCollider.transform.localScale.y * scaleForFinalAttack);
 
         while(time<expansionTime)
         {
-            finalAttackCollider.transform.localScale = Vector2.Lerp(originalScale, newScale, time / expansionTime);
+            //Debug.Log("Expanding");
+            finalAttackCollider.transform.localScale = Vector2.Lerp(originalScale, newScale, (time / expansionTime));
             time += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
         time = 0;
-        while(time<1)
+        while(time<expansionTime)
         {
-            finalAttackCollider.transform.localScale = Vector2.Lerp(newScale, originalScale, time / expansionTime);
+            finalAttackCollider.transform.localScale = Vector2.Lerp(newScale, originalScale, (time / expansionTime));
             time += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
         bigBang = false;
+        finalAttack = false;
+        timer = 0;
 
         yield return null;
     }
