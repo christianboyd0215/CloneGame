@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlyingSpear : MonoBehaviour
 {
     public Vector2 Speed = new Vector2(15f, 0f);
+    public GameObject SpearEffect;
     private GameObject Character;
     private Rigidbody2D rb;
     public GameObject BackBar;
@@ -47,6 +48,8 @@ public class FlyingSpear : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().simulated = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            Instantiate(SpearEffect, gameObject.transform.position, Quaternion.identity);
+            
         }
         if (!collision.gameObject.CompareTag("Player") && !Back)
         {
@@ -72,9 +75,12 @@ public class FlyingSpear : MonoBehaviour
         Character = GameObject.FindWithTag("Player");
 
         Shoot = Input.GetKeyDown(KeyCode.LeftControl);
-        if (!HeldSpear.GetComponent<HeldSpear>().WasShot)
+        if (gameObject != null && HeldSpear != null)
         {
-            Destroy(gameObject);
+            if (!HeldSpear.GetComponent<HeldSpear>().WasShot)
+            {
+                Destroy(gameObject);
+            }
         }
         if (!done)
         {
@@ -85,6 +91,7 @@ public class FlyingSpear : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().simulated = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            Instantiate(SpearEffect, gameObject.transform.position, Quaternion.identity);
         }
         if (BackBar != null)
         {
@@ -108,11 +115,14 @@ public class FlyingSpear : MonoBehaviour
         if (Back)
         {
             rb.velocity = Speed;
-            if (Mathf.Abs(Character.transform.position.x - gameObject.transform.position.x) <= 1)
+            if (Character != null && gameObject != null)
             {
-                rb.velocity = Vector2.zero;
-                gameObject.GetComponent<BoxCollider2D>().enabled = true;
-                Flying = false;
+                if (Mathf.Abs(Character.transform.position.x - gameObject.transform.position.x) <= 1)
+                {
+                    rb.velocity = Vector2.zero;
+                    gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                    Flying = false;
+                }
             }
         }
 
@@ -129,24 +139,27 @@ public class FlyingSpear : MonoBehaviour
 
     void _Back()
     {
-        if (Mathf.Abs(Character.transform.position.x - gameObject.transform.position.x) <= RecycleRange && Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) <= RecycleRange)
+        if (Character != null && gameObject != null)
         {
-            gameObject.GetComponent<Rigidbody2D>().simulated = true;
-            gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-            Flying = true;
-            Back = true;
-            BackX = 15f * (Character.transform.position.x - gameObject.transform.position.x);
-            bTime = Mathf.Abs((Character.transform.position.x - gameObject.transform.position.x)) / 15f;
-            if (Character.transform.position.y >= gameObject.transform.position.y)
+            if (Mathf.Abs(Character.transform.position.x - gameObject.transform.position.x) <= RecycleRange && Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) <= RecycleRange)
             {
-                BackY = Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) / bTime * 2f;
-            }
-            else
-            {
-                BackY = -Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) / bTime * 2f;
-            }
-            Speed = new Vector2(BackX, BackY);
+                gameObject.GetComponent<Rigidbody2D>().simulated = true;
+                gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                Flying = true;
+                Back = true;
+                BackX = 15f * (Character.transform.position.x - gameObject.transform.position.x);
+                bTime = Mathf.Abs((Character.transform.position.x - gameObject.transform.position.x)) / 15f;
+                if (Character.transform.position.y >= gameObject.transform.position.y)
+                {
+                    BackY = Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) / bTime * 2f;
+                }
+                else
+                {
+                    BackY = -Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) / bTime * 2f;
+                }
+                Speed = new Vector2(BackX, BackY);
 
+            }
         }
     }
 

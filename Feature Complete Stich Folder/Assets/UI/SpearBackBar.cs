@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class SpearBackBar : MonoBehaviour {
     private GameObject FlyingSpear;
@@ -19,13 +20,16 @@ public class SpearBackBar : MonoBehaviour {
             if (FlyingSpear != null)
             {
                 RecycleRange = FlyingSpear.GetComponent<FlyingSpear>().RecycleRange;
-                if (Mathf.Abs(Character.transform.position.x - FlyingSpear.transform.position.x) <= RecycleRange && Mathf.Abs(Character.transform.position.y - FlyingSpear.transform.position.y) <= RecycleRange)
+                if (Character != null && FlyingSpear != null)
                 {
-                    inRecycleRange = true;
-                }
-                else
-                {
-                    inRecycleRange = false;
+                    if (Mathf.Abs(Character.transform.position.x - FlyingSpear.transform.position.x) <= RecycleRange && Mathf.Abs(Character.transform.position.y - FlyingSpear.transform.position.y) <= RecycleRange)
+                    {
+                        inRecycleRange = true;
+                    }
+                    else
+                    {
+                        inRecycleRange = false;
+                    }
                 }
             }
             else
@@ -38,7 +42,7 @@ public class SpearBackBar : MonoBehaviour {
         
         if (!done&& inRecycleRange)
         {
-            click = Input.GetKey(KeyCode.X);
+            click = (CrossPlatformInputManager.GetButton("Fire3") || Input.GetKey(KeyCode.X));
             if (click)
             {
                 if (gameObject.transform.localScale.x < 1 && inRecycleRange)
