@@ -13,7 +13,7 @@ public class FlyingSpear : MonoBehaviour
     private Vector3 MoveSpeed;
     private Vector3 GritySpeed = Vector3.zero;
     private Vector3 currentAngle;
-    public float RecycleRange = 20f;
+    public float RecycleRange = 100f;
     private float BackX;
     private float BackY;
     private float bTime;
@@ -27,6 +27,7 @@ public class FlyingSpear : MonoBehaviour
     private bool Shoot = false;
     private bool Flying = true;
     public bool Back = false;
+    private bool EffectInitiated = false;
 
     void Start()
     {
@@ -49,23 +50,15 @@ public class FlyingSpear : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().simulated = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
             Instantiate(SpearEffect, gameObject.transform.position, Quaternion.identity);
-            
+            EffectInitiated = true;
+            gameObject.GetComponent<AudioSource>().Play();
         }
         if (!collision.gameObject.CompareTag("Player") && !Back)
         {
             Speed = Vector2.zero;
             Flying = false;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
-        }
-        else
-        {
-            if (collision.gameObject.CompareTag("Player") && Back)
-            {
-                Speed = Vector2.zero;
-                Flying = false;
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            }
+            gameObject.GetComponent<AudioSource>().Play();
         }
     }
     
@@ -91,7 +84,11 @@ public class FlyingSpear : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().simulated = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            Instantiate(SpearEffect, gameObject.transform.position, Quaternion.identity);
+            if (!EffectInitiated)
+            {
+                Instantiate(SpearEffect, gameObject.transform.position, Quaternion.identity);
+                EffectInitiated = true;
+            }
         }
         if (BackBar != null)
         {
@@ -117,11 +114,17 @@ public class FlyingSpear : MonoBehaviour
             rb.velocity = Speed;
             if (Character != null && gameObject != null)
             {
-                if (Mathf.Abs(Character.transform.position.x - gameObject.transform.position.x) <= 1)
+                if (Mathf.Abs(Character.transform.position.x - gameObject.transform.position.x) <= 2&&Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) <= 2)
                 {
+                    Speed = Vector2.zero;
                     rb.velocity = Vector2.zero;
-                    gameObject.GetComponent<BoxCollider2D>().enabled = true;
                     Flying = false;
+                    gameObject.GetComponent<AudioSource>().Play();
+                    Instantiate(SpearEffect, gameObject.transform.position, Quaternion.identity);
+                    HeldSpear.GetComponent<HeldSpear>().WasShot = false;
+                    HeldSpear.GetComponent<HeldSpear>().Shoot = false;
+                    HeldSpear.GetComponent<Renderer>().enabled = true;
+                    Destroy(gameObject);
                 }
             }
         }
