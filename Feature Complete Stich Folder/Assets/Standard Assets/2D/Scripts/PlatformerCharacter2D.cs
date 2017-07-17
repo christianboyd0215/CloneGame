@@ -151,6 +151,14 @@ namespace UnityStandardAssets._2D
             {
                 SlimeBossKilled = true;
             }
+            if(bossName == "Wizard")
+            {
+                WizardBossKilled = true;
+            }
+            if(bossName == "Spin")
+            {
+                SpinBossKilled = true;
+            }
         }
         public bool BossIsDead(string bossName)
         {

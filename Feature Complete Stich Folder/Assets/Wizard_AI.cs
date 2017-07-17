@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets._2D;
 
 
 public class Wizard_AI : MonoBehaviour
@@ -40,6 +41,10 @@ public class Wizard_AI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if(Player.GetComponent<PlatformerCharacter2D>().BossIsDead("Wizard"))
+        {
+            Destroy(gameObject);
+        }
         counter = Random.Range(lowerrange, upperrange);
         gameObject.transform.position = Location1.transform.position;
         CurrentLocation = Location1;
@@ -198,6 +203,7 @@ public class Wizard_AI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
+            Player.GetComponent<PlatformerCharacter2D>().KillBoss("Wizard");
             Destroy(gameObject);
         }
     }
