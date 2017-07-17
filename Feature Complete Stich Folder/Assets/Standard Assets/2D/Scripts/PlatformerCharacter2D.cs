@@ -31,7 +31,6 @@ namespace UnityStandardAssets._2D
         private float fastground;
         private float ground;
         public bool Jumped = false;
-        public bool Jumped_g = true;
 
         private void Awake()
         {
@@ -62,8 +61,8 @@ namespace UnityStandardAssets._2D
             }
             m_Anim.SetBool("Ground", m_Grounded);
 
-            if (!m_Grounded && m_Rigidbody2D.velocity.y < 0)
-                Jumped = true;
+            //if (!m_Grounded && m_Rigidbody2D.velocity.y < 0)
+                //Jumped = true;
 
             // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
@@ -115,9 +114,9 @@ namespace UnityStandardAssets._2D
             if (m_Grounded && jump && m_Anim.GetBool("Ground"))//&& !jump_cancel
             {
                 // Add a vertical force to the player.
-                if (m_Grounded)
+                if (!Jumped)
                 {
-                    m_Grounded = false;
+                    Jumped = true;
                     m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 18f);
                 }
                 m_Anim.SetBool("Ground", false);          

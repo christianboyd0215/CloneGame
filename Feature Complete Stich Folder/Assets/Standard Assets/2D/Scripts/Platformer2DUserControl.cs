@@ -9,7 +9,6 @@ namespace UnityStandardAssets._2D
     {
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
-        private bool temp_Jump;
 
 
         private void Awake()
@@ -20,10 +19,9 @@ namespace UnityStandardAssets._2D
         private void FixedUpdate()
         {
             // Read the inputs.
-            temp_Jump = CrossPlatformInputManager.GetButton("Jump");
-            if (!CrossPlatformInputManager.GetButton("Jump") && m_Character.Jumped)
+            m_Jump = CrossPlatformInputManager.GetButton("Jump");
+            if (!CrossPlatformInputManager.GetButton("Jump") && m_Character.m_Grounded)
                 m_Character.Jumped = false;
-            m_Jump = temp_Jump && !m_Character.Jumped;
 
             bool crouch = (CrossPlatformInputManager.GetButton("Fire1")|| Input.GetKey(KeyCode.LeftControl));
             bool sprint = (Input.GetKey(KeyCode.LeftShift)||CrossPlatformInputManager.GetButton("Fire2"));//this is meant to be right trigger but somehow is right bumper.
