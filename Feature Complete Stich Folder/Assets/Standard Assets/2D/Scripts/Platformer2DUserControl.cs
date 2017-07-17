@@ -9,8 +9,7 @@ namespace UnityStandardAssets._2D
     {
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
-        private bool jump_Cancel;
-
+        private bool temp_Jump;
 
 
         private void Awake()
@@ -18,27 +17,19 @@ namespace UnityStandardAssets._2D
             m_Character = GetComponent<PlatformerCharacter2D>();
         }
 
-
-        private void Update()
-        {
-            if (!m_Jump)
-            {
-                // Read the jump input in Update so button presses aren't missed.
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-                jump_Cancel = CrossPlatformInputManager.GetButtonUp("Jump");
-            }
-        }
-
-
         private void FixedUpdate()
         {
             // Read the inputs.
+            temp_Jump = CrossPlatformInputManager.GetButton("Jump");
+            if (!CrossPlatformInputManager.GetButton("Jump") && m_Character.Jumped)
+                m_Character.Jumped = false;
+            m_Jump = temp_Jump && !m_Character.Jumped;
+
             bool crouch = (CrossPlatformInputManager.GetButton("Fire1")|| Input.GetKey(KeyCode.LeftControl));
             bool sprint = (Input.GetKey(KeyCode.LeftShift)||CrossPlatformInputManager.GetButton("Fire2"));//this is meant to be right trigger but somehow is right bumper.
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             // Pass all parameters to the character control script.
-            m_Character.Move(h, crouch, m_Jump, jump_Cancel, sprint);
-            m_Jump = false;
+            m_Character.Move(h, crouch, m_Jump, sprint); //jump_Cancel, 
         }
     }
 }
