@@ -16,4 +16,8 @@ public class FireBall : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    void FixedUpdate()
+    {
+        Destroy(gameObject, 3);
+    } 
 }

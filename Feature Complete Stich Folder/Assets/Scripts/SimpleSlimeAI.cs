@@ -52,6 +52,7 @@ public class SimpleSlimeAI : MonoBehaviour {
         {
             boss_Rigidbody2D.AddForce(Direction);
             counter = 0;
+            gameObject.GetComponent<AudioSource>().Play();
         }
     }
 
