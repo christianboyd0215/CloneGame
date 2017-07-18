@@ -243,6 +243,11 @@ namespace UnityStandardAssets._2D
             {
                 respawnPoint = other.transform.position;
             }
+
+            if (other.tag == "Door")
+            {
+                transform.position = new Vector3(-43.44f, -53.24f, 0);
+            }
         }
     }
 }
