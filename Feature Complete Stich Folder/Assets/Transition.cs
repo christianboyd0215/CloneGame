@@ -26,6 +26,7 @@ public class Transition : MonoBehaviour {
         else
         {
             Instantiate(Spear, new Vector3(transform.position.x, transform.position.y + 4, transform.position.z), Quaternion.Euler(0, 0, 90));
+            GetComponent<FinalFight>().enabled = true;
             Destroy(this);
         }
     }

@@ -11,9 +11,9 @@ public class Killlllllllll : MonoBehaviour {
     private void FixedUpdate()
     {
         counter += Time.deltaTime;
-        if (counter > 0.42 && added)
+        if (counter > 0.38 && added)
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, -70);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, -80);
             added = false;
         }
     }
