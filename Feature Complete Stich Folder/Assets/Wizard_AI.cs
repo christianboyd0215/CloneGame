@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets._2D;
 
 
 public class Wizard_AI : MonoBehaviour
@@ -15,7 +14,7 @@ public class Wizard_AI : MonoBehaviour
     public GameObject Location7;
     public GameObject Location8;
     public GameObject FinalAttackPosition;
-    public GameObject Player;
+    GameObject Player;
     public GameObject fireball;
     public GameObject finalAttackCollider;
     public float expansionTime;
@@ -41,10 +40,7 @@ public class Wizard_AI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if(Player.GetComponent<PlatformerCharacter2D>().BossIsDead("Wizard"))
-        {
-            Destroy(gameObject);
-        }
+        Player = GameObject.FindGameObjectWithTag("Player");
         counter = Random.Range(lowerrange, upperrange);
         gameObject.transform.position = Location1.transform.position;
         CurrentLocation = Location1;
@@ -203,15 +199,8 @@ public class Wizard_AI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
-            if (finalAttack)
-            {
-                Player.GetComponent<PlatformerCharacter2D>().KillBoss("Wizard");
-                Destroy(gameObject);
-            }
-            else
-            {
-                Teleport();
-            }
+            Destroy(GameObject.FindGameObjectWithTag("BossWall2"));
+            Destroy(gameObject);
         }
     }
 
