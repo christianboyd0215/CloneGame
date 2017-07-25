@@ -25,6 +25,9 @@ namespace UnityStandardAssets._2D
             {
                 // Read the jump input in Update so button presses aren't missed.
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            }
+            if(!jump_Cancel)
+            {
                 jump_Cancel = CrossPlatformInputManager.GetButtonUp("Jump");
             }
         }
@@ -39,6 +42,7 @@ namespace UnityStandardAssets._2D
             // Pass all parameters to the character control script.
             m_Character.Move(h, crouch, m_Jump, jump_Cancel, sprint);
             m_Jump = false;
+            jump_Cancel = false;
         }
     }
 }

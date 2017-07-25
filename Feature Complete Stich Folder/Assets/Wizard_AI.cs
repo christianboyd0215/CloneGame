@@ -203,8 +203,15 @@ public class Wizard_AI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
-            Player.GetComponent<PlatformerCharacter2D>().KillBoss("Wizard");
-            Destroy(gameObject);
+            if (finalAttack)
+            {
+                Player.GetComponent<PlatformerCharacter2D>().KillBoss("Wizard");
+                Destroy(gameObject);
+            }
+            else
+            {
+                Teleport();
+            }
         }
     }
 
