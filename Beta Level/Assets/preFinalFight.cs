@@ -5,11 +5,13 @@ using UnityEngine;
 public class preFinalFight : MonoBehaviour {
 
     public GameObject Phase2;
+    bool flyAway = true;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("FlyingSpear"))
+        if (collision.gameObject.CompareTag("FlyingSpear") && flyAway)
         {
+            flyAway = false;
             Instantiate(Phase2, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
         }
     }
