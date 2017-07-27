@@ -212,7 +212,7 @@ public class NewSlimeAI : MonoBehaviour {
         {
             counter += Time.deltaTime;
         }
-        if (counter >= 0.8 && Math.Abs(player.transform.position.x - boss_Rigidbody2D.position.x) < 10)
+        if (counter >= 0.8 && Math.Abs(player.transform.position.x - boss_Rigidbody2D.position.x) < 100)
         {
             boss_Rigidbody2D.AddForce(Direction);
             Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
