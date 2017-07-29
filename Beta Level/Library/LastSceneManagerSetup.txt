@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Feature Complete level (Build in Progress).unity
+- path: Assets/FinalBossTrial.unity
   isLoaded: 1
   isActive: 1
