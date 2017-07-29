@@ -13,7 +13,6 @@ public class FlyingSpear : MonoBehaviour
     private Vector3 MoveSpeed;
     private Vector3 GritySpeed = Vector3.zero;
     private Vector3 currentAngle;
-    public float RecycleRange = 100f;
     private float BackX;
     private float BackY;
     private float bTime;
@@ -144,8 +143,6 @@ public class FlyingSpear : MonoBehaviour
     {
         if (Character != null && gameObject != null)
         {
-            if (Mathf.Abs(Character.transform.position.x - gameObject.transform.position.x) <= RecycleRange && Mathf.Abs(Character.transform.position.y - gameObject.transform.position.y) <= RecycleRange)
-            {
                 gameObject.GetComponent<Rigidbody2D>().simulated = true;
                 gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
                 Flying = true;
@@ -162,7 +159,7 @@ public class FlyingSpear : MonoBehaviour
                 }
                 Speed = new Vector2(BackX, BackY);
 
-            }
+            
         }
     }
 

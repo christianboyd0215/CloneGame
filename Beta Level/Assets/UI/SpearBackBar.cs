@@ -17,25 +17,7 @@ public class SpearBackBar : MonoBehaviour {
             done = GameObject.Find("Counter").GetComponent<SpearBackCounter>().stage3;
             FlyingSpear = GameObject.FindWithTag("FlyingSpear");
             Character = GameObject.FindWithTag("Player");
-            if (FlyingSpear != null)
-            {
-                RecycleRange = FlyingSpear.GetComponent<FlyingSpear>().RecycleRange;
-                if (Character != null && FlyingSpear != null)
-                {
-                    if (Mathf.Abs(Character.transform.position.x - FlyingSpear.transform.position.x) <= RecycleRange && Mathf.Abs(Character.transform.position.y - FlyingSpear.transform.position.y) <= RecycleRange)
-                    {
-                        inRecycleRange = true;
-                    }
-                    else
-                    {
-                        inRecycleRange = false;
-                    }
-                }
-            }
-            else
-            {
-                inRecycleRange = false;
-            }
+            inRecycleRange = true;
         }
     }
     void FixedUpdate () {
