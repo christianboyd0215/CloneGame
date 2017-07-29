@@ -39,6 +39,7 @@ public class FlyingSpear : MonoBehaviour
         currentAngle = Vector3.zero;
         rb = gameObject.GetComponent<Rigidbody2D>();
         Ground = Character.GetComponent<GroundHeight>().Ground;
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * direction, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
 
     }
 
