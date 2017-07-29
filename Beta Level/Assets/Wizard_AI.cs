@@ -178,10 +178,11 @@ public class Wizard_AI : MonoBehaviour
                 CurrentLocation = Location8;
                 needsToTeleport = false;
             }
-            finalAttackCounter += 1;
+            
             
 
         }
+        finalAttackCounter += 1;
     }
     void OnTriggerEnter2D(Collider2D other)
     {
