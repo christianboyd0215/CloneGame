@@ -246,7 +246,21 @@ namespace UnityStandardAssets._2D
 
             if (other.tag == "Door")
             {
-                transform.position = new Vector3(-43.44f, -53.24f, 0);
+                if(SlimeBossKilled)
+                {
+                    if(SpinBossKilled)
+                    {
+                        if(WizardBossKilled)
+                        {
+                            transform.position = new Vector3(-43.44f, -53.24f, 0);
+                        }
+                    }
+                }
+                
+            }
+            if(other.tag == "Secondary Door")
+            {
+                transform.position = new Vector3(62, 157, 0);
             }
         }
     }
