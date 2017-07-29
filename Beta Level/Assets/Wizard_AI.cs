@@ -69,6 +69,7 @@ public class Wizard_AI : MonoBehaviour
                 if (waveCounter >= wave)
                 {
                     newFireBall = Instantiate(fireball, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
+                    gameObject.GetComponent<AudioSource>().Play();
                     speedFireBall = newFireBall.GetComponent<Rigidbody2D>();
                     //float vectxsqr = (Player.transform.position.x - gameObject.transform.position.x) * (Player.transform.position.x - gameObject.transform.position.x);
                     //float vectysqr = (Player.transform.position.y - gameObject.transform.position.y) * (Player.transform.position.y - gameObject.transform.position.y);
@@ -94,6 +95,7 @@ public class Wizard_AI : MonoBehaviour
         else if ((timer >= counter) && !finalAttack && !bigBang)
         {
             newFireBall = Instantiate(fireball, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
+            gameObject.GetComponent<AudioSource>().Play();
             speedFireBall = newFireBall.GetComponent<Rigidbody2D>();
             //float vectxsqr = (Player.transform.position.x - gameObject.transform.position.x) * (Player.transform.position.x - gameObject.transform.position.x);
             //float vectysqr = (Player.transform.position.y - gameObject.transform.position.y) * (Player.transform.position.y - gameObject.transform.position.y);
