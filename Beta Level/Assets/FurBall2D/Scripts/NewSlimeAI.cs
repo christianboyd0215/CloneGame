@@ -68,17 +68,31 @@ public class NewSlimeAI : MonoBehaviour {
         Cloud = GameObject.Find("Cloud");
        // cloudanim = GameObject.Find("Cloud(Clone)").GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
-        if (player.GetComponent<PlatformerCharacter2D>().BossIsDead("Slime"))
+        
+    }
+    
+    void OnCollisionStay2D(Collision2D collision2D)
+    {
+        if(collision2D.gameObject.CompareTag("Ground"))
         {
-            Destroy(gameObject);
+            isGrounded = true;
         }
-        if (!bossSlime)
+        if (collision2D.gameObject.CompareTag("Slow Ground"))
         {
-            slimeList.Add(gameObject);
+            isGrounded = true;
         }
     }
-
-
+    void OnCollisionExit2D(Collision2D collision2D)
+    {
+        if (collision2D.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+        if (collision2D.gameObject.CompareTag("Slow Ground"))
+        {
+            isGrounded = false;
+        }
+    }
 	void OnCollisionEnter2D(Collision2D collision2D) {
 		
 		if (collision2D.relativeVelocity.magnitude > 20){
@@ -176,7 +190,7 @@ public class NewSlimeAI : MonoBehaviour {
 
 		//rb2d.velocity = new Vector2 (hor * maxSpeed, rb2d.velocity.y);
 		  
-		isGrounded = Physics2D.OverlapCircle (groundCheck.position, 0.15F, whatIsGround);
+		//isGrounded = Physics2D.OverlapCircle (groundCheck.position, 0.15F, whatIsGround);
 
 		anim.SetBool ("IsGrounded", isGrounded);
 
@@ -212,7 +226,7 @@ public class NewSlimeAI : MonoBehaviour {
         {
             counter += Time.deltaTime;
         }
-        if (counter >= 0.8 && Math.Abs(player.transform.position.x - boss_Rigidbody2D.position.x) < 100)
+        if (counter >= jumptime && Math.Abs(player.transform.position.x - boss_Rigidbody2D.position.x) < 100)
         {
             boss_Rigidbody2D.AddForce(Direction);
             Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
@@ -231,5 +245,5 @@ public class NewSlimeAI : MonoBehaviour {
 		myScale.x *= -1;
 		transform.localScale = myScale;
 	}
-
+    
 }
