@@ -29,7 +29,7 @@ public class NewSlimeAI : MonoBehaviour {
     [HideInInspector]
 	public bool lookingRight = true;
 	bool doubleJump = false;
-	public GameObject Boost;// Unnessasary?
+	public GameObject wayBack;
 	
 	private Animator cloudanim;
 	public GameObject Cloud;
@@ -96,7 +96,7 @@ public class NewSlimeAI : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collision2D) {
 		
 		if (collision2D.relativeVelocity.magnitude > 20){
-			Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
+			//Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
 		//	cloudanim.Play("cloud");	
 
 		}
@@ -131,6 +131,7 @@ public class NewSlimeAI : MonoBehaviour {
                         Destroy(slime);
                     }
                     player.GetComponent<PlatformerCharacter2D>().KillBoss("Slime");
+                    Instantiate(wayBack, transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
 
@@ -229,7 +230,7 @@ public class NewSlimeAI : MonoBehaviour {
         if (counter >= jumptime && Math.Abs(player.transform.position.x - boss_Rigidbody2D.position.x) < 100)
         {
             boss_Rigidbody2D.AddForce(Direction);
-            Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
+            //Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
             //cloudanim.Play("cloud");
             counter = 0;
             gameObject.GetComponent<AudioSource>().Play();

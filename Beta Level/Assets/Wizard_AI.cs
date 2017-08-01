@@ -35,6 +35,7 @@ public class Wizard_AI : MonoBehaviour
     public int number_of_waves;
     public float speed_of_waves;
     private bool bigBang;
+    public GameObject wayBack;
 
 
     // Use this for initialization
@@ -203,6 +204,7 @@ public class Wizard_AI : MonoBehaviour
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
             Destroy(GameObject.FindGameObjectWithTag("BossWall2"));
+            Instantiate(wayBack, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

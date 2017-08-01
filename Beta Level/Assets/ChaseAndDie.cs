@@ -15,6 +15,7 @@ public class ChaseAndDie : MonoBehaviour {
     float Distance;
     float unitxDistance;
     float unityDistance;
+    public GameObject wayBack;
 
 
     // Use this for initialization
@@ -63,6 +64,7 @@ public class ChaseAndDie : MonoBehaviour {
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
             Destroy(GameObject.FindGameObjectWithTag("BossWall"));
+            Instantiate(wayBack, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
