@@ -159,6 +159,16 @@ namespace UnityStandardAssets._2D
             {
                 SlimeBossKilled = true;
             }
+
+            if (bossName == "Wizard")
+            {
+                WizardBossKilled = true;
+            }
+
+            if (bossName == "Spin")
+            {
+                SpinBossKilled = true;
+            }
         }
         public bool BossIsDead(string bossName)
         {
@@ -258,9 +268,10 @@ namespace UnityStandardAssets._2D
                 }
                 
             }
+
             if(other.tag == "Secondary Door")
             {
-                transform.position = new Vector3(62, 157, 0);
+                transform.position = new Vector3(54.86f, 150.79f, 0);
             }
         }
     }

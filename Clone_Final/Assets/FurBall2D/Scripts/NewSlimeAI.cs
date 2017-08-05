@@ -129,7 +129,7 @@ public class NewSlimeAI : MonoBehaviour {
                         Destroy(slime);
                     }
                     player.GetComponent<PlatformerCharacter2D>().KillBoss("Slime");
-                    Instantiate(wayBack, transform.position, transform.rotation);
+                    Instantiate(wayBack, new Vector3(0.32f, 71.7f, 0), Quaternion.Euler(0, 0, 0));
                     Destroy(gameObject);
                 }
 

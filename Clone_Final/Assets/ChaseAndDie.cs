@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets._2D;
 
 public class ChaseAndDie : MonoBehaviour {
 
@@ -13,9 +14,10 @@ public class ChaseAndDie : MonoBehaviour {
     float xDistance;
     float yDistance;
     float Distance;
+    public GameObject wayBack;
     float unitxDistance;
     float unityDistance;
-
+    
 
     // Use this for initialization
     void Start()
@@ -63,6 +65,8 @@ public class ChaseAndDie : MonoBehaviour {
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
             Destroy(GameObject.FindGameObjectWithTag("BossWall"));
+            player.GetComponent<PlatformerCharacter2D>().KillBoss("Spin");
+            Instantiate(wayBack, new Vector3(70.16448f, 217.7765f, 0), Quaternion.Euler(0, 0, 0));
             Destroy(gameObject);
         }
     }

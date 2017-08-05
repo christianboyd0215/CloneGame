@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets._2D;
 
 
 public class Wizard_AI : MonoBehaviour
@@ -35,6 +36,7 @@ public class Wizard_AI : MonoBehaviour
     public int number_of_waves;
     public float speed_of_waves;
     private bool bigBang;
+    public GameObject wayBack;
 
 
     // Use this for initialization
@@ -202,6 +204,8 @@ public class Wizard_AI : MonoBehaviour
         if (collision.gameObject.CompareTag("FlyingSpear"))
         {
             Destroy(GameObject.FindGameObjectWithTag("BossWall2"));
+            Player.GetComponent<PlatformerCharacter2D>().KillBoss("Wizard");
+            Instantiate(wayBack, new Vector3(172.3461f, 166.8013f, 0), Quaternion.Euler(0, 0, 0));
             Destroy(gameObject);
         }
     }

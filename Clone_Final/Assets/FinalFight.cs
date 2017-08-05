@@ -12,6 +12,7 @@ public class FinalFight : MonoBehaviour {
     GameObject currentbox1;
     GameObject currentbox2;
     GameObject currentbox3;
+    public string startScene;
 
     public GameObject spear;
     float lowerrange = 5f;
@@ -141,6 +142,9 @@ public class FinalFight : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("FlyingSpear"))
+        {
+            Application.LoadLevel(startScene);
             Destroy(gameObject);
+        }
     }
 }
